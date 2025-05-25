@@ -3,6 +3,7 @@ package com.navarro.financial.controll.authentication.entities;
 import com.navarro.financial.controll.authentication.dto.login.LoginRequest;
 import com.navarro.financial.controll.entities.Account;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -5,15 +5,19 @@ import com.navarro.financial.controll.authentication.entities.User;
 import com.navarro.financial.controll.authentication.repositories.RoleRepository;
 import com.navarro.financial.controll.authentication.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
 public class AdminUserConfig implements CommandLineRunner {
 
+    private static final Logger log = LoggerFactory.getLogger(AdminUserConfig.class);
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
@@ -30,17 +34,23 @@ public class AdminUserConfig implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        var roleAdmin = this.roleRepository.findByName(Role.Values.ADMIN.name());
-        var userAdmin = this.userRepository.findByUsername("Admin");
+        this.createAdminUserIfNotExists();
+    }
 
-        userAdmin.ifPresentOrElse(
-                (user) -> System.out.printf("User %s already exist!", user.getUsername()),
+    private void createAdminUserIfNotExists() {
+        String adminUsername = "Admin";
+        String defaultPassword = "123";
+
+        this.userRepository.findByUsername(adminUsername).ifPresentOrElse(
+                user -> log.info("User '{}' already exists!", user.getUsername()),
                 () -> {
-                    var user = new User();
-                    user.setUsername("Admin");
-                    user.setPassword(encoder.encode("123"));
-                    user.setRoles(Set.of(roleAdmin));
+                    Set<Role> allRoles = new HashSet<>(this.roleRepository.findAll());
+                    User user = new User();
+                    user.setUsername(adminUsername);
+                    user.setPassword(encoder.encode(defaultPassword));
+                    user.setRoles(allRoles);
                     this.userRepository.save(user);
+                    log.info("Admin user '{}' created successfully.", adminUsername);
                 }
         );
     }

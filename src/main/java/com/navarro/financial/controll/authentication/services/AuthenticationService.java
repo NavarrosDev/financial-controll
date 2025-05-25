@@ -8,4 +8,5 @@ import com.navarro.financial.controll.authentication.dto.register.RegisterRespon
 public interface AuthenticationService {
     LoginResponse login(LoginRequest request);
     RegisterResponse register(RegisterRequest request);
+    void delete(String username);
 }
