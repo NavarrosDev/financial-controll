@@ -1,5 +1,6 @@
 package com.navarro.financial.controll.entities;
 
+import com.navarro.financial.controll.authentication.entities.User;
 import com.navarro.financial.controll.entities.enums.Currency;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

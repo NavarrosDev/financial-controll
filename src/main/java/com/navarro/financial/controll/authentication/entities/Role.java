@@ -1,4 +1,4 @@
-package com.navarro.financial.controll.entities;
+package com.navarro.financial.controll.authentication.entities;
 
 import jakarta.persistence.*;
 

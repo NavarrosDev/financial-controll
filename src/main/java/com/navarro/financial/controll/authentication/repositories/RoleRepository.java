@@ -1,12 +1,10 @@
-package com.navarro.financial.controll.respositories;
+package com.navarro.financial.controll.authentication.repositories;
 
-import com.navarro.financial.controll.entities.Role;
-import com.navarro.financial.controll.entities.User;
+import com.navarro.financial.controll.authentication.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
+    Role findByName(String name);
 }

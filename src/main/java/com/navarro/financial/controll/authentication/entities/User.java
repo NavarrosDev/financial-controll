@@ -1,6 +1,9 @@
-package com.navarro.financial.controll.entities;
+package com.navarro.financial.controll.authentication.entities;
 
+import com.navarro.financial.controll.authentication.dto.login.LoginRequest;
+import com.navarro.financial.controll.entities.Account;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Set;
@@ -60,5 +63,9 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isLoginCorrect(LoginRequest request, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(request.password(), this.password);
     }
 }
