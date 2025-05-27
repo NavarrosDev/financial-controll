@@ -89,13 +89,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     @Transactional
     public void delete(String username) {
-        User userToDelete = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("User %s not found!", username)));
-
-        userToDelete.getRoles().clear();
-        userRepository.save(userToDelete);
-        userRepository.delete(userToDelete);
+        userRepository.findByUsername(username)
+                .ifPresentOrElse(user -> {
+                                user.getRoles().clear();
+                                userRepository.save(user);
+                                userRepository.delete(user);
+                            }, () -> { throw new EntityNotFoundException(
+                                String.format("User %s not found!", username)); });
     }
 
     private String createTokenJwt(User user, Long expiresIn) {
