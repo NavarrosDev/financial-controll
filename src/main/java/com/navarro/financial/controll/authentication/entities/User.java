@@ -1,9 +1,8 @@
 package com.navarro.financial.controll.authentication.entities;
 
 import com.navarro.financial.controll.authentication.dto.login.LoginRequest;
-import com.navarro.financial.controll.entities.Account;
+import com.navarro.financial.controll.account.entities.Account;
 import jakarta.persistence.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;

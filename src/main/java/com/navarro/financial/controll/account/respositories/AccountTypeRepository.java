@@ -1,6 +1,6 @@
-package com.navarro.financial.controll.respositories;
+package com.navarro.financial.controll.account.respositories;
 
-import com.navarro.financial.controll.entities.AccountType;
+import com.navarro.financial.controll.account.entities.AccountType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

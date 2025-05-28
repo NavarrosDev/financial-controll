@@ -1,7 +1,7 @@
-package com.navarro.financial.controll.entities;
+package com.navarro.financial.controll.account.entities;
 
 import com.navarro.financial.controll.authentication.entities.User;
-import com.navarro.financial.controll.entities.enums.Currency;
+import com.navarro.financial.controll.account.entities.enums.Currency;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -16,7 +16,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
     private Long accountId;
-    private String name;
+    private String name; // Mudar para accountNumber
     private BigDecimal balance;
     private Currency currency;
     private boolean active = true;
