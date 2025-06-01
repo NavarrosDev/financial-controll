@@ -20,18 +20,25 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AccountResponse> getAccountById(@PathVariable Long id) {
-        return ResponseEntity.ok(this.accountService.getAccountById(id));
+    public ResponseEntity<AccountResponse> getAccountById(@PathVariable Long id,
+                                                          JwtAuthenticationToken token) {
+        return ResponseEntity.ok(this.accountService.getAccountById(id, token));
     }
 
     @GetMapping
-    public ResponseEntity<List<AccountResponse>> getAllAccount() {
-        return ResponseEntity.ok(this.accountService.getAccounts());
+    public ResponseEntity<List<AccountResponse>> getAllAccount(JwtAuthenticationToken token) {
+        return ResponseEntity.ok(this.accountService.getAccounts(token));
     }
 
     @PostMapping
     public ResponseEntity<AccountResponse> createAccount(@RequestBody AccountRequest request,
                                                          JwtAuthenticationToken token) {
         return ResponseEntity.ok(this.accountService.createAccount(request, token));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> deleteAccount(@PathVariable Long id,
+                                                         JwtAuthenticationToken token) {
+        return ResponseEntity.ok(this.accountService.deleteAccount(id));
     }
 }

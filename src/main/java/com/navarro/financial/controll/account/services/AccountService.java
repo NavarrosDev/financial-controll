@@ -7,8 +7,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import java.util.List;
 
 public interface AccountService {
-    AccountResponse getAccountById(Long id);
-    List<AccountResponse> getAccounts();
+    AccountResponse getAccountById(Long id, JwtAuthenticationToken token);
+    List<AccountResponse> getAccounts(JwtAuthenticationToken token);
     AccountResponse createAccount(AccountRequest request, JwtAuthenticationToken token);
     AccountResponse updateAccount(Long id, AccountRequest request);
     Void deleteAccount(Long id);
