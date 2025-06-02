@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class AccountSpecification {
@@ -17,11 +18,11 @@ public class AccountSpecification {
 
             predicates.add(cb.equal(root.get("user").get("userId"), userId));
 
-            if (filter.active() != null) {
+            if (Objects.nonNull(filter.active())) {
                 predicates.add(cb.equal(root.get("active"), filter.active()));
             }
 
-            if (filter.type() != null && !filter.type().isEmpty()) {
+            if (Objects.nonNull(filter.type()) && !filter.type().isEmpty()) {
                 predicates.add(cb.equal(root.get("type"), filter.type()));
             }
 
