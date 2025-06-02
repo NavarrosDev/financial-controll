@@ -1,6 +1,7 @@
 package com.navarro.financial.controll.account.controller;
 
 import com.navarro.financial.controll.account.dto.AccountRequest;
+import com.navarro.financial.controll.account.dto.AccountRequestUpdate;
 import com.navarro.financial.controll.account.dto.AccountResponse;
 import com.navarro.financial.controll.account.services.AccountService;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +37,16 @@ public class AccountController {
         return ResponseEntity.ok(this.accountService.createAccount(request, token));
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AccountResponse> updateAccount(@PathVariable Long id,
+                                                         @RequestBody AccountRequestUpdate request,
+                                                         JwtAuthenticationToken token) {
+        return ResponseEntity.ok(this.accountService.updateAccount(id, request, token));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> deleteAccount(@PathVariable Long id,
-                                                         JwtAuthenticationToken token) {
+                                              JwtAuthenticationToken token) {
         return ResponseEntity.ok(this.accountService.deleteAccount(id));
     }
 }

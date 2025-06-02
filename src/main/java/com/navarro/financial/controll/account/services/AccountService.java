@@ -1,6 +1,7 @@
 package com.navarro.financial.controll.account.services;
 
 import com.navarro.financial.controll.account.dto.AccountRequest;
+import com.navarro.financial.controll.account.dto.AccountRequestUpdate;
 import com.navarro.financial.controll.account.dto.AccountResponse;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
@@ -10,6 +11,6 @@ public interface AccountService {
     AccountResponse getAccountById(Long id, JwtAuthenticationToken token);
     List<AccountResponse> getAccounts(JwtAuthenticationToken token);
     AccountResponse createAccount(AccountRequest request, JwtAuthenticationToken token);
-    AccountResponse updateAccount(Long id, AccountRequest request);
+    AccountResponse updateAccount(Long id, AccountRequestUpdate request, JwtAuthenticationToken token);
     Void deleteAccount(Long id);
 }
