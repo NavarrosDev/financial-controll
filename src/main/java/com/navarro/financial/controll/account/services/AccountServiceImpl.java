@@ -8,8 +8,11 @@ import com.navarro.financial.controll.account.exceptions.AccountAlreadyExists;
 import com.navarro.financial.controll.account.exceptions.AccountNotFoundException;
 import com.navarro.financial.controll.account.respositories.AccountRepository;
 import com.navarro.financial.controll.account.respositories.AccountTypeRepository;
+import com.navarro.financial.controll.account.services.filters.AccountSpecification;
+import com.navarro.financial.controll.account.services.filters.dto.AccountFilter;
 import com.navarro.financial.controll.authentication.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -33,19 +36,24 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountResponse getAccountById(Long id, JwtAuthenticationToken token) {
+    public AccountResponse getAccountById(Long id, JwtAuthenticationToken token, AccountFilter filter) {
         UUID userId = UUID.fromString(token.getName());
+        Specification<Account> spec = Specification
+                .where(AccountSpecification.byId(id))
+                .and(AccountSpecification.filter(filter, userId));
 
-        return this.accountRepository.findByAccountIdAndUser_UserIdAndActiveTrue(id, userId)
+        return this.accountRepository.findOne(spec)
                 .map(AccountResponse::new)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found!"));
     }
 
-
     @Override
-    public List<AccountResponse> getAccounts(JwtAuthenticationToken token) {
-        return this.accountRepository.findByUser_UserIdAndActiveTrue(UUID.fromString(token.getName()))
-                .stream().map(AccountResponse::new)
+    public List<AccountResponse> getAccounts(JwtAuthenticationToken token, AccountFilter filter) {
+        UUID userId = UUID.fromString(token.getName());
+        Specification<Account> spec = AccountSpecification.filter(filter, userId);
+
+        return this.accountRepository.findAll(spec).stream()
+                .map(AccountResponse::new)
                 .toList();
     }
 

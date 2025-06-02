@@ -4,6 +4,7 @@ import com.navarro.financial.controll.account.dto.AccountRequest;
 import com.navarro.financial.controll.account.dto.AccountRequestUpdate;
 import com.navarro.financial.controll.account.dto.AccountResponse;
 import com.navarro.financial.controll.account.services.AccountService;
+import com.navarro.financial.controll.account.services.filters.dto.AccountFilter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +23,15 @@ public class AccountController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AccountResponse> getAccountById(@PathVariable Long id,
-                                                          JwtAuthenticationToken token) {
-        return ResponseEntity.ok(this.accountService.getAccountById(id, token));
+                                                          JwtAuthenticationToken token,
+                                                          @ModelAttribute AccountFilter filter) {
+        return ResponseEntity.ok(this.accountService.getAccountById(id, token, filter));
     }
 
     @GetMapping
-    public ResponseEntity<List<AccountResponse>> getAllAccount(JwtAuthenticationToken token) {
-        return ResponseEntity.ok(this.accountService.getAccounts(token));
+    public ResponseEntity<List<AccountResponse>> getAllAccount(JwtAuthenticationToken token,
+                                                               @ModelAttribute AccountFilter filter) {
+        return ResponseEntity.ok(this.accountService.getAccounts(token, filter));
     }
 
     @PostMapping
