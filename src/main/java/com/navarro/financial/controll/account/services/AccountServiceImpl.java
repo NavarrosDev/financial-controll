@@ -12,6 +12,8 @@ import com.navarro.financial.controll.account.services.filters.AccountSpecificat
 import com.navarro.financial.controll.account.services.filters.dto.AccountFilter;
 import com.navarro.financial.controll.authentication.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -48,13 +50,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AccountResponse> getAccounts(JwtAuthenticationToken token, AccountFilter filter) {
+    public Page<AccountResponse> getAccounts(JwtAuthenticationToken token, AccountFilter filter, Pageable pageable) {
         UUID userId = UUID.fromString(token.getName());
         Specification<Account> spec = AccountSpecification.filter(filter, userId);
 
-        return this.accountRepository.findAll(spec).stream()
-                .map(AccountResponse::new)
-                .toList();
+        return this.accountRepository.findAll(spec, pageable)
+                .map(AccountResponse::new);
     }
 
     @Override

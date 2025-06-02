@@ -5,6 +5,8 @@ import com.navarro.financial.controll.account.dto.AccountRequestUpdate;
 import com.navarro.financial.controll.account.dto.AccountResponse;
 import com.navarro.financial.controll.account.services.AccountService;
 import com.navarro.financial.controll.account.services.filters.dto.AccountFilter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +31,10 @@ public class AccountController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AccountResponse>> getAllAccount(JwtAuthenticationToken token,
-                                                               @ModelAttribute AccountFilter filter) {
-        return ResponseEntity.ok(this.accountService.getAccounts(token, filter));
+    public Page<AccountResponse> getAllAccount(JwtAuthenticationToken token,
+                                               @ModelAttribute AccountFilter filter,
+                                               Pageable pageable) {
+        return this.accountService.getAccounts(token, filter, pageable);
     }
 
     @PostMapping
