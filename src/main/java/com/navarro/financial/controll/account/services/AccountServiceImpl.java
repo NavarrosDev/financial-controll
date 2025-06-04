@@ -64,14 +64,7 @@ public class AccountServiceImpl implements AccountService {
                     throw new AccountAlreadyExists(String.format("Account %s already exists", account.getName()));
                 });
 
-        Account account = new Account();
-        account.setName(request.name());
-        account.setBalance(request.balance());
-        account.setCurrency(request.currency());
-        this.userRepository.findById(UUID.fromString(token.getName())).ifPresent(account::setUser);
-        this.accountTypeRepository.findById(request.accountType()).ifPresent(account::setAccountType);
-        this.accountRepository.save(account);
-
+        Account account = this.createAccountMet(request, token);
         return new AccountResponse(account);
     }
 
@@ -98,5 +91,16 @@ public class AccountServiceImpl implements AccountService {
                         account -> account.setActive(false),
                         () -> { throw new AccountNotFoundException("Account not found!"); });
         return null;
+    }
+
+    private Account createAccountMet(AccountRequest request, JwtAuthenticationToken token) {
+        Account account = new Account();
+        account.setName(request.name());
+        account.setBalance(request.balance());
+        account.setCurrency(request.currency());
+        this.userRepository.findById(UUID.fromString(token.getName())).ifPresent(account::setUser);
+        this.accountTypeRepository.findById(request.accountType()).ifPresent(account::setAccountType);
+        this.accountRepository.save(account);
+        return account;
     }
 }
