@@ -18,6 +18,9 @@ public class AccountType {
     @OneToMany(mappedBy = "accountType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
 
+    public AccountType() {
+    }
+
     public Long getAccountTypeId() {
         return accountTypeId;
     }

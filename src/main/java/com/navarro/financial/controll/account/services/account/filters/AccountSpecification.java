@@ -1,7 +1,7 @@
-package com.navarro.financial.controll.account.services.filters;
+package com.navarro.financial.controll.account.services.account.filters;
 
 import com.navarro.financial.controll.account.entities.Account;
-import com.navarro.financial.controll.account.services.filters.dto.AccountFilter;
+import com.navarro.financial.controll.account.services.account.filters.dto.AccountFilter;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 

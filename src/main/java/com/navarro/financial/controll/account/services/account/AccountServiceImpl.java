@@ -1,15 +1,15 @@
-package com.navarro.financial.controll.account.services;
+package com.navarro.financial.controll.account.services.account;
 
-import com.navarro.financial.controll.account.dto.AccountRequest;
-import com.navarro.financial.controll.account.dto.AccountRequestUpdate;
-import com.navarro.financial.controll.account.dto.AccountResponse;
+import com.navarro.financial.controll.account.dto.account.AccountRequest;
+import com.navarro.financial.controll.account.dto.account.AccountRequestUpdate;
+import com.navarro.financial.controll.account.dto.account.AccountResponse;
 import com.navarro.financial.controll.account.entities.Account;
 import com.navarro.financial.controll.account.exceptions.AccountAlreadyExists;
 import com.navarro.financial.controll.account.exceptions.AccountNotFoundException;
 import com.navarro.financial.controll.account.respositories.AccountRepository;
 import com.navarro.financial.controll.account.respositories.AccountTypeRepository;
-import com.navarro.financial.controll.account.services.filters.AccountSpecification;
-import com.navarro.financial.controll.account.services.filters.dto.AccountFilter;
+import com.navarro.financial.controll.account.services.account.filters.AccountSpecification;
+import com.navarro.financial.controll.account.services.account.filters.dto.AccountFilter;
 import com.navarro.financial.controll.authentication.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;

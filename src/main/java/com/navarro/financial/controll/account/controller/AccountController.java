@@ -1,17 +1,15 @@
 package com.navarro.financial.controll.account.controller;
 
-import com.navarro.financial.controll.account.dto.AccountRequest;
-import com.navarro.financial.controll.account.dto.AccountRequestUpdate;
-import com.navarro.financial.controll.account.dto.AccountResponse;
-import com.navarro.financial.controll.account.services.AccountService;
-import com.navarro.financial.controll.account.services.filters.dto.AccountFilter;
+import com.navarro.financial.controll.account.dto.account.AccountRequest;
+import com.navarro.financial.controll.account.dto.account.AccountRequestUpdate;
+import com.navarro.financial.controll.account.dto.account.AccountResponse;
+import com.navarro.financial.controll.account.services.account.AccountService;
+import com.navarro.financial.controll.account.services.account.filters.dto.AccountFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/account")

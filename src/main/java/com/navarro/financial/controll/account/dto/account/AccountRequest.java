@@ -1,4 +1,4 @@
-package com.navarro.financial.controll.account.dto;
+package com.navarro.financial.controll.account.dto.account;
 
 import com.navarro.financial.controll.account.entities.enums.Currency;
 
